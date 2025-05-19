@@ -266,20 +266,27 @@ end
 function M:highlight(opts)
   opts = opts or {}
   local ft = opts.ft
+  Snacks.debug.log("Initial ft", ft)
   if not ft and opts.buf then
     local modeline = Snacks.picker.util.modeline(opts.buf)
     ft = modeline and modeline.ft
+    Snacks.debug.log("Got ft from buf", ft)
   end
   if not ft and (opts.file or opts.buf) then
     ft = vim.filetype.match({
       buf = opts.buf or self.win.buf,
       filename = opts.file,
     })
+    Snacks.debug.log("Got ft from win", ft)
   end
   self:check_big()
   local lang = Snacks.util.get_lang(opts.lang or ft)
+  Snacks.debug.log("Lang is", lang)
+  Snacks.debug.log("Win is", self.win)
+  Snacks.debug.log("Opts are", opts)
   if not (lang and pcall(vim.treesitter.start, self.win.buf, lang)) and ft then
     vim.bo[self.win.buf].syntax = ft
+    Snacks.debug.log("Set syntax", lang)
   end
 end
 
