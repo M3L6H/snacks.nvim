@@ -159,7 +159,7 @@ function M.file(ctx)
         ctx.preview:wo({ number = false, relativenumber = false, cursorline = false, signcolumn = "no" })
       end
       ctx.preview:set_lines(lines)
-      ctx.preview:highlight({ file = path, ft = ft, buf = ctx.buf })
+      -- ctx.preview:highlight({ file = path, ft = ft, buf = ctx.buf })
     end
   end
   ctx.preview:loc()
